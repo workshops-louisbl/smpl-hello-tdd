@@ -1,0 +1,17 @@
+{
+    "name": "smpl/hello-tdd",
+    "autoload": {
+      "psr-4": {
+        "Smpl\\HelloTdd\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Smpl\\HelloTdd\\": "tests/"
+      }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "require": {}
+}
