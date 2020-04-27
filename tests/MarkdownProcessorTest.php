@@ -8,10 +8,10 @@ class MarkdownProcessorTest extends TestCase
 {
   public function testMarkdownProcessorCanBeCreated()
   {
-    $stubFileLoader = $this->createMock(FileLoader::class);
-    $stubMdParser = $this->createMock(MarkdownParser::class);
+    $mockFileLoader = $this->createMock(FileLoader::class);
+    $mockMdParser = $this->createMock(MarkdownParser::class);
 
-    $instance = new MarkdownProcessor($stubFileLoader, $stubMdParser);
+    $instance = new MarkdownProcessor($mockFileLoader, $mockMdParser);
 
     $this->assertInstanceOf(MarkdownProcessor::class, $instance);
   }
@@ -21,13 +21,13 @@ class MarkdownProcessorTest extends TestCase
     $filePath = "file path";
     $expected = "HTML result";
 
-    $stubFileLoader = $this->createMock(FileLoader::class);
-    $stubFileLoader->method('getContent')->willReturn("MD source");
+    $mockFileLoader = $this->createMock(FileLoader::class);
+    $mockFileLoader->method('getContent')->willReturn("MD source");
 
-    $stubMdParser = $this->createMock(MarkdownParser::class);
-    $stubMdParser->method('parse')->willReturn($expected);
+    $mockMdParser = $this->createMock(MarkdownParser::class);
+    $mockMdParser->method('parse')->willReturn($expected);
 
-    $mdProcessor = new MarkdownProcessor($stubFileLoader, $stubMdParser);
+    $mdProcessor = new MarkdownProcessor($mockFileLoader, $mockMdParser);
 
     $result = $mdProcessor->process($filePath);
 
@@ -38,15 +38,15 @@ class MarkdownProcessorTest extends TestCase
   {
     $filePath = "file_not_found";
 
-    $stubFileLoader = $this->createMock(FileLoader::class);
-    $stubFileLoader->method('getContent')
+    $mockFileLoader = $this->createMock(FileLoader::class);
+    $mockFileLoader->method('getContent')
       ->will($this->throwException(new \Exception("file not found")));
 
-    $stubMdParser = $this->createMock(MarkdownParser::class);
-    $stubMdParser->method('parse')
+    $mockMdParser = $this->createMock(MarkdownParser::class);
+    $mockMdParser->method('parse')
       ->will($this->throwException(new \Exception("parse should not be called")));
 
-    $mdProcessor = new MarkdownProcessor($stubFileLoader, $stubMdParser);
+    $mdProcessor = new MarkdownProcessor($mockFileLoader, $mockMdParser);
 
     $result = $mdProcessor->process($filePath);
 
